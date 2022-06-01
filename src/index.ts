@@ -4,7 +4,10 @@ import App from './App';
 import 'colors';
 
 // Importaciones de controladores
-import UserController from './api/User/user.controller';
+import AlumnoController from './api/Alumno/alumno.controller';
+import ProfesorController from './api/Profesor/profesor.controller';
+import GradoController from './api/Grado/grado.controller';
+import AlumnoGradoController from './api/AlumnoGrado/alumnoGrado.controller';
 
 const url ='mongodb://localhost/pruebaCRUD'
 
@@ -23,7 +26,10 @@ const path = '/PRUEBA';
 
 const app = new App(
     [
-        new UserController(path)
+        new AlumnoController(path),
+        new ProfesorController(path),
+        new GradoController(path),
+        new AlumnoGradoController(path),
     ]
 );
 

@@ -1,17 +1,18 @@
 import DataNotFoundException from "../../exceptions/DataNotFoundException"
 import BadRequestException from "../../exceptions/BadRequestException"
-import UserModel, {user} from "../../interface/userInterface"
+import gradoModel, {grado} from "../../interface/controllers/grado.interface"
 
-class UsersCM {
+
+class GradosCM {
     // newUser is an object with the same structure as userSchema 
     // in this case: "nombre", "edad" and "correo".
-    public Create = async (newUser:user) =>{
+    public Create = async (newUser:grado) =>{
         if(newUser === null || newUser === undefined) {
             console.log('Usuario vacio al intentar crear'.red)
             return new BadRequestException("Envíe la información del Usuario que se va a registrar")
         }
 
-        const user = await UserModel.create(newUser)
+        const user = await gradoModel.create(newUser)
         return user
     }
 
@@ -21,13 +22,13 @@ class UsersCM {
             console.log('id vacio al intentar buscar usuario'.red);
             return new BadRequestException("Envíe el ID a modificar")
         }
-        const user = await UserModel.findById(byID)
+        const user = await gradoModel.findById(byID)
         return user
     }
 
     public Read = async ()=>{
 
-        const users = await UserModel.find({}).exec()
+        const users = await gradoModel.find({}).exec()
         if(users === null || users === undefined) {
             console.log('Equipo no encontrado'.red);
             return new DataNotFoundException("No se encontraron usuarios");
@@ -45,7 +46,7 @@ class UsersCM {
             return new BadRequestException("Envíe el ID a modificar")
         }
         const ID = changes._id
-        const user = await UserModel.updateOne({_id: ID}, changes, { new: true })
+        const user = await gradoModel.updateOne({_id: ID}, changes, { new: true })
         return user
     }
     //Delete funtion to end CRUD
@@ -54,9 +55,9 @@ class UsersCM {
             console.log('ID vacio al intentar buscar usuario'.red)
             return new BadRequestException("Envíe el ID de usuario a eliminar")
         }
-        const user = await UserModel.deleteOne({_id:ID})
+        const user = await gradoModel.deleteOne({_id:ID})
         return user
     }
 }
 
-export default UsersCM;
+export default GradosCM;

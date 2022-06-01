@@ -1,15 +1,15 @@
 import { Request, Response, Router, NextFunction } from 'express';
 import  Controller from '../../interface/controller.interface';
 import validationMiddleware from '../../middleware/validation.middleware';
-import { CreateUser, UpdateUser } from './user.dto';
-import UsersCM from './user.CM';
+import { createAlumnoGrado, UpdateGrado } from './alumnoGrado.dto';
+import AlumnoGradoCM from './alumnoGrado.CM';
 import HttpException from '../../exceptions/HttpException';
 
 
-class UserController implements Controller{
+class AlumnoGradoController implements Controller{
     public router = Router();
-    public path = '/users';
-    private UserCM = new UsersCM();
+    public path = '/grado';
+    private UserCM = new AlumnoGradoCM();
 
     constructor(basePath: string) {
         this.path = basePath + this.path;
@@ -17,10 +17,10 @@ class UserController implements Controller{
     }
 
     initializeRoutes() {
-        this.router.post(this.path + '/new',validationMiddleware(CreateUser, true), this.CreaterUser);
+        this.router.post(this.path + '/new',validationMiddleware(createAlumnoGrado, true), this.CreaterUser);
         this.router.get(this.path + '/:id', this.ReadOneUser);
         this.router.get(this.path + '/', this.ReadUsers);
-        this.router.put(this.path + '/edit', validationMiddleware(UpdateUser, true), this.UpdateUser);
+        this.router.put(this.path + '/edit', validationMiddleware(UpdateGrado, true), this.UpdateUser);
         this.router.delete(this.path + '/delete/:id', this.DeleteUser);
     }
 
@@ -80,4 +80,4 @@ class UserController implements Controller{
   
 }
 
-export default UserController;
+export default AlumnoGradoController;
